@@ -31,7 +31,7 @@
     <a href="https://github.com/mwmerz/kanban-project"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://kanban-project.vercel.app/">View Demo</a>
+    <a href="https://kanban-project-eight.vercel.app/">View Demo</a>
     ·
     <a href="https://github.com/mwmerz/kanban-project/issues">Report Bug</a>
     ·
