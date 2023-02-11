@@ -1,4 +1,4 @@
-import { CssBaseline, Stack } from "@mui/material";
+import { CssBaseline, Stack, Box } from "@mui/material";
 import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 import { useTasks } from "hooks";
 import { ColumnComponent, CreateListInput } from "./components";
@@ -53,24 +53,30 @@ function App() {
     <div>
       <CssBaseline />
       <CreateListInput />
-      <DragDropContext
-        onDragUpdate={onDragUpdate}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-      >
-        <Stack direction={"row"} overflow={"scroll"}>
-          {taskData.columnOrder.map((columnId) => {
-            const column = taskData.columns[columnId];
-            const tasks = column.taskIds.map((taskId) => {
-              return taskData.tasks[taskId];
-            });
+      <Box bgcolor={"rgba(245,245,245,.55)"} minHeight={"100vh"}>
+        <DragDropContext
+          onDragUpdate={onDragUpdate}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+        >
+          <Stack direction={"row"} overflow={"scroll"}>
+            {taskData.columnOrder.map((columnId) => {
+              const column = taskData.columns[columnId];
+              const tasks = column.taskIds.map((taskId) => {
+                return taskData.tasks[taskId];
+              });
 
-            return (
-              <ColumnComponent key={column.id} column={column} tasks={tasks} />
-            );
-          })}
-        </Stack>
-      </DragDropContext>
+              return (
+                <ColumnComponent
+                  key={column.id}
+                  column={column}
+                  tasks={tasks}
+                />
+              );
+            })}
+          </Stack>
+        </DragDropContext>
+      </Box>
     </div>
   );
 }
