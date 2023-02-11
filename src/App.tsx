@@ -1,10 +1,10 @@
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Stack } from "@mui/material";
 import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 import { useTasks } from "hooks";
 import { ColumnComponent, CreateListInput } from "./components";
 
 function App() {
-  const { taskData, setTaskData } = useTasks();
+  const { taskData, saveTaskData } = useTasks();
 
   function onDragStart() {
     // TODO: effects that happen when the drag starts.
@@ -47,7 +47,7 @@ function App() {
       },
     };
 
-    setTaskData(newState);
+    saveTaskData(newState);
   }
   return (
     <div>
@@ -58,16 +58,18 @@ function App() {
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        {taskData.columnOrder.map((columnId) => {
-          const column = taskData.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => {
-            return taskData.tasks[taskId];
-          });
+        <Stack direction={"row"} overflow={"scroll"}>
+          {taskData.columnOrder.map((columnId) => {
+            const column = taskData.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => {
+              return taskData.tasks[taskId];
+            });
 
-          return (
-            <ColumnComponent key={column.id} column={column} tasks={tasks} />
-          );
-        })}
+            return (
+              <ColumnComponent key={column.id} column={column} tasks={tasks} />
+            );
+          })}
+        </Stack>
       </DragDropContext>
     </div>
   );

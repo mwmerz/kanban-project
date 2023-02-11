@@ -1,1 +1,1 @@
-export { Base64Encode, Base64Decode } from "./format";
+export { base64Encode, base64Decode, getRelativeTimeString } from "./format";
