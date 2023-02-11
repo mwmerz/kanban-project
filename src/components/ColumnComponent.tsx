@@ -36,7 +36,9 @@ export function ColumnComponent({
               sx={{ transition: "background-color 0.2s ease" }}
               boxShadow={snapshot.isDraggingOver ? 2 : 0}
               bgcolor={
-                snapshot.isDraggingOver ? "rgba(94,154,237,.9)" : "white"
+                snapshot.isDraggingOver
+                  ? "rgba(94,154,237,.9)"
+                  : "rgba(255,255,255,.01)"
               }
               p={"8px"}
               ref={provided.innerRef}
