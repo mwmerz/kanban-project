@@ -8,7 +8,6 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
@@ -88,7 +87,9 @@ To get a local copy up and running follow these simple example steps.
 
 
 <!-- ROADMAP -->
-## Required Features
+## Roadmap
+
+### Required Features
 
 - [X] Basics
   - [X] React
@@ -104,7 +105,7 @@ To get a local copy up and running follow these simple example steps.
   - [ ] Status
   - [ ] Order
 
-## User Stories
+### User Stories
 - [ ] Add column w/name
 - [ ] Modify column name
 - [ ] delete empty column
@@ -115,7 +116,7 @@ To get a local copy up and running follow these simple example steps.
 - [ ] move order w/drag & drop
 - [ ] can archive card
 
-## Advanced Features
+### Advanced Features
 - [ ] Tests
 - [ ] Error Handling
 - [ ] Multiple Boards
@@ -123,7 +124,7 @@ To get a local copy up and running follow these simple example steps.
 - [ ] i18n Feature
 - [X] PWA - Add to home
 - [ ] Persist Storage
-- [ ] Push Notification when card craeted
+- [ ] Push Notification when card created
 - [ ] Windowing for large sets
 - [ ] Code Splitting / Lazy Loading
 - [ ] Responsive Design
