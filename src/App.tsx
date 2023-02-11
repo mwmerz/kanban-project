@@ -1,22 +1,17 @@
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Stack } from "@mui/material";
 import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 import { useTasks } from "hooks";
-import { ColumnComponent } from "./components";
+import { ColumnComponent, CreateListInput } from "./components";
 
 function App() {
-  const { taskData, setTaskData } = useTasks();
+  const { taskData, saveTaskData } = useTasks();
 
   function onDragStart() {
     // TODO: effects that happen when the drag starts.
-    document.body.style.transition = "background-color 0.2s ease";
   }
 
   function onDragUpdate(update: DragUpdate) {
-    const { destination } = update;
-    const opacity = destination
-      ? destination.index / Object.keys(taskData.tasks).length
-      : 0;
-    document.body.style.backgroundColor = `rgba(153, 153, 153, ${opacity})`;
+    // TODO: effects that happen as drag is updated.
   }
 
   function onDragEnd(result: DropResult) {
@@ -52,26 +47,29 @@ function App() {
       },
     };
 
-    setTaskData(newState);
+    saveTaskData(newState);
   }
   return (
     <div>
       <CssBaseline />
+      <CreateListInput />
       <DragDropContext
         onDragUpdate={onDragUpdate}
         onDragStart={onDragStart}
         onDragEnd={onDragEnd}
       >
-        {taskData.columnOrder.map((columnId) => {
-          const column = taskData.columns[columnId];
-          const tasks = column.taskIds.map((taskId) => {
-            return taskData.tasks[taskId];
-          });
+        <Stack direction={"row"} overflow={"scroll"}>
+          {taskData.columnOrder.map((columnId) => {
+            const column = taskData.columns[columnId];
+            const tasks = column.taskIds.map((taskId) => {
+              return taskData.tasks[taskId];
+            });
 
-          return (
-            <ColumnComponent key={column.id} column={column} tasks={tasks} />
-          );
-        })}
+            return (
+              <ColumnComponent key={column.id} column={column} tasks={tasks} />
+            );
+          })}
+        </Stack>
       </DragDropContext>
     </div>
   );

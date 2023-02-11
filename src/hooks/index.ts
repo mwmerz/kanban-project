@@ -1,1 +1,2 @@
-export { useTasks } from "./useTasks";
+export { useTasks } from "../contexts/TaskProvider";
+export { useLocalStorage } from "./useLocalStorage";
