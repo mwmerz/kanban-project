@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { Draggable } from "react-beautiful-dnd";
+import { Handle } from "./Handle";
 import { Task } from "data";
 
 export function TaskComponent({ task, index }: { task: Task; index: number }) {
@@ -7,6 +8,7 @@ export function TaskComponent({ task, index }: { task: Task; index: number }) {
     <Draggable draggableId={task.id} index={index}>
       {(provided, snapshot) => (
         <Box
+          display={"flex"}
           color={snapshot.isDragging ? "white" : ""}
           boxShadow={snapshot.isDragging ? 2 : 0}
           bgcolor={snapshot.isDragging ? "rgba(27,68,161,.9)" : "white"}
@@ -18,9 +20,9 @@ export function TaskComponent({ task, index }: { task: Task; index: number }) {
           mb={"8px"}
           p={"8px"}
           {...provided.draggableProps}
-          {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
+          <Handle {...provided.dragHandleProps} />
           {task.content}
         </Box>
       )}

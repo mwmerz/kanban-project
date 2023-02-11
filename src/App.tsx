@@ -1,22 +1,17 @@
 import { CssBaseline } from "@mui/material";
 import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 import { useTasks } from "hooks";
-import { ColumnComponent } from "./components";
+import { ColumnComponent, CreateListInput } from "./components";
 
 function App() {
   const { taskData, setTaskData } = useTasks();
 
   function onDragStart() {
     // TODO: effects that happen when the drag starts.
-    document.body.style.transition = "background-color 0.2s ease";
   }
 
   function onDragUpdate(update: DragUpdate) {
-    const { destination } = update;
-    const opacity = destination
-      ? destination.index / Object.keys(taskData.tasks).length
-      : 0;
-    document.body.style.backgroundColor = `rgba(153, 153, 153, ${opacity})`;
+    // TODO: effects that happen as drag is updated.
   }
 
   function onDragEnd(result: DropResult) {
@@ -57,6 +52,7 @@ function App() {
   return (
     <div>
       <CssBaseline />
+      <CreateListInput />
       <DragDropContext
         onDragUpdate={onDragUpdate}
         onDragStart={onDragStart}
