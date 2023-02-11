@@ -96,24 +96,24 @@ To get a local copy up and running follow these simple example steps.
   - [X] SPA
   - [X] Boiler Plate
 - [ ] Model: Column
-  - [ ] Name
+  - [X] Name
   - [ ] Order
 - [ ] Model: Card
-  - [ ] Name
-  - [ ] Description
-  - [ ] Created Date
-  - [ ] Status
+  - [X] Name
+  - [X] Description
+  - [X] Created Date
+  - [X] Status
   - [ ] Order
 
 ### User Stories
-- [ ] Add column w/name
+- [X] Add column w/name
 - [ ] Modify column name
 - [ ] delete empty column
 - [ ] drag & drop columns
 - [ ] add card w/name & description
 - [ ] can modify card details
-- [ ] user can see/switch ard status
-- [ ] move order w/drag & drop
+- [ ] user can see/switch card status
+- [X] move order w/drag & drop
 - [ ] can archive card
 
 ### Advanced Features
