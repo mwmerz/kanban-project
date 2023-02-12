@@ -79,7 +79,7 @@ To get a local copy up and running follow these simple example steps.
    ```
 3. Run it
    ```js
-   yarn run dev
+   yarn start
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
