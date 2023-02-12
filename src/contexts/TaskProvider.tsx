@@ -92,7 +92,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
 
     // clone the existing tasklist with the new task in it
     const newTasks = {
-      ...structuredClone(taskData.tasks),
+      ...taskData.tasks,
       [newTaskId]: newTask,
     };
 
@@ -231,7 +231,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
 
     // clone existing columns, add new one at the end.
     const newColumns = {
-      ...structuredClone(taskData.columns),
+      ...taskData.columns,
       [newColumn.id]: newColumn,
     };
 
