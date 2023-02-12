@@ -25,7 +25,7 @@ export function TaskComponent({ task, index }: { task: Task; index: number }) {
           ref={provided.innerRef}
         >
           <Stack direction={"row"} width={"100%"}>
-            <Handle {...provided.dragHandleProps} />
+            <Handle mr={2} {...provided.dragHandleProps} />
             <Stack width={"100%"}>
               <Box fontWeight={"bold"}>{task.name}</Box>
               <Box fontSize={".9em"}>{task.description}</Box>
