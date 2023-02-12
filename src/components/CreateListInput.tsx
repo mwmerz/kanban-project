@@ -29,40 +29,42 @@ export function CreateListInput() {
 
   return (
     <Box p={"8px"} display={"flex"} justifyContent={"center"}>
-      <Stack gap={2} direction={["column", "row"]} alignItems={"flex-start"}>
-        <TextField
-          style={{ width: 300 }}
-          error={inputError ? true : false}
-          helperText={inputError}
-          size={"small"}
-          id="list-name"
-          label="Create New List"
-          variant="outlined"
-          value={listName}
-          onChange={(e) => {
-            handleListUpdate(e.target.value);
-          }}
-        />
-        <Stack gap={1} direction={"row"}>
-          <Button
-            variant={"contained"}
-            onClick={() => {
-              handleCreateClick(listName);
+      <form
+        onSubmit={() => {
+          handleCreateClick(listName);
+        }}
+      >
+        <Stack gap={2} direction={["column", "row"]} alignItems={"flex-start"}>
+          <TextField
+            autoComplete={"off"}
+            style={{ width: 300 }}
+            error={inputError ? true : false}
+            helperText={inputError}
+            size={"small"}
+            id="list-name"
+            label="Create New List"
+            variant="outlined"
+            value={listName}
+            onChange={(e) => {
+              handleListUpdate(e.target.value);
             }}
-          >
-            Create List
-          </Button>
-          <Button
-            variant={"contained"}
-            color={"error"}
-            onClick={() => {
-              clearState();
-            }}
-          >
-            Clear Storage
-          </Button>
+          />
+          <Stack gap={1} direction={"row"}>
+            <Button type={"submit"} variant={"contained"}>
+              Create List
+            </Button>
+            <Button
+              variant={"contained"}
+              color={"error"}
+              onClick={() => {
+                clearState();
+              }}
+            >
+              Clear Storage
+            </Button>
+          </Stack>
         </Stack>
-      </Stack>
+      </form>
     </Box>
   );
 }
