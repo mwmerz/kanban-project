@@ -98,7 +98,8 @@ export function CreateListInput() {
   return (
     <Box p={"8px"} display={"flex"} justifyContent={"center"}>
       <form
-        onSubmit={() => {
+        onSubmit={(e) => {
+          e.preventDefault();
           handleCreateClick(listName);
         }}
       >
