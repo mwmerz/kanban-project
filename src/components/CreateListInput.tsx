@@ -1,11 +1,79 @@
-import { useState } from "react";
-import { Box, Stack, TextField, Button } from "@mui/material";
+import { Dispatch, SetStateAction, useState } from "react";
+import {
+  Box,
+  Stack,
+  TextField,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from "@mui/material";
 import { useTasks } from "hooks";
+
+function AlertDialog({
+  open,
+  successCallback,
+  setOpen,
+}: {
+  open: boolean;
+  successCallback: () => void;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+}) {
+  return (
+    <Box>
+      <Dialog
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {"Sure you want to delete?"}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to clear the storage? This will set this board
+            back to the default items.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            variant={"contained"}
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            variant={"contained"}
+            onClick={() => {
+              successCallback();
+            }}
+            autoFocus
+          >
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
+}
 
 export function CreateListInput() {
   const [listName, setListName] = useState<string>("");
   const [inputError, setInputError] = useState<string>("");
+  const [confirmAlertOpen, setConfirmAlertOpen] = useState<boolean>(false);
   const { clearState, addColumn } = useTasks();
+
+  function handleClearConfirm() {
+    setConfirmAlertOpen(false);
+    clearState();
+  }
 
   // handle list updates, add validation, etc
   // TODO: Validation
@@ -57,7 +125,7 @@ export function CreateListInput() {
               variant={"contained"}
               color={"error"}
               onClick={() => {
-                clearState();
+                setConfirmAlertOpen(true);
               }}
             >
               Clear Storage
@@ -65,6 +133,11 @@ export function CreateListInput() {
           </Stack>
         </Stack>
       </form>
+      <AlertDialog
+        open={confirmAlertOpen}
+        successCallback={handleClearConfirm}
+        setOpen={setConfirmAlertOpen}
+      />
     </Box>
   );
 }
