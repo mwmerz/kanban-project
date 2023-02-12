@@ -1,6 +1,7 @@
 import { CssBaseline, Stack, Box } from "@mui/material";
 import { DragDropContext, DropResult, DragUpdate } from "react-beautiful-dnd";
 import { useTasks } from "hooks";
+import { cobaltBlue } from "styles";
 import { ColumnComponent, CreateListInput } from "./components";
 
 function App() {
@@ -53,7 +54,7 @@ function App() {
     <div>
       <CssBaseline />
       <CreateListInput />
-      <Box bgcolor={"rgba(245,245,245,.55)"} minHeight={"100vh"}>
+      <Box bgcolor={cobaltBlue} minHeight={"100vh"}>
         <DragDropContext
           onDragUpdate={onDragUpdate}
           onDragStart={onDragStart}
