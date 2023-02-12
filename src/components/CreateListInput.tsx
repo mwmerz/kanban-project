@@ -19,7 +19,7 @@ export function CreateListInput() {
   }
 
   return (
-    <Box p={"8px"}>
+    <Box p={"8px"} display={"flex"} justifyContent={"center"}>
       <Stack gap={2} direction={["column", "row"]}>
         <TextField
           style={{ width: 300 }}
