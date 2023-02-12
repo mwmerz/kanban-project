@@ -1,10 +1,4 @@
-import {
-  useState,
-  useContext,
-  createContext,
-  ReactNode,
-  useEffect,
-} from "react";
+import { useContext, createContext, ReactNode } from "react";
 import { DropResult } from "react-beautiful-dnd";
 import { useSnackbar } from "notistack";
 import { Task } from "data";
@@ -31,13 +25,10 @@ export const TaskContext = createContext<ITaskContext>({} as ITaskContext);
  */
 export function TaskProvider({ children }: { children: ReactNode }) {
   const { enqueueSnackbar } = useSnackbar();
-  const [localLoaded, setLocalLoaded] = useState<boolean>(false);
-  const [taskData, setTaskData] = useState<KanbanData>(initialData);
 
   // create store and handle for localstorage item.
   // similar API to useState.
-  // TODO: why even use useState? just use localstorage for state.
-  const [savedData, setSavedData] = useLocalStorage(
+  const [taskData, setSavedData] = useLocalStorage(
     LOCAL_STORAGE_KEY,
     initialData
   );
@@ -46,27 +37,14 @@ export function TaskProvider({ children }: { children: ReactNode }) {
   // then, push a message to the user.
   function clearState() {
     localStorage.removeItem(LOCAL_STORAGE_KEY);
-    setTaskData(initialData);
+    setSavedData(initialData);
     enqueueSnackbar("State cleared.", { variant: "warning" });
   }
 
   // update state - saves both local and active state.
   function saveTaskData(data: KanbanData) {
     setSavedData(data);
-    setTaskData(data);
   }
-
-  // check to see if the local state needs to be loaded.
-  // update app state to use local state.
-  useEffect(() => {
-    if (!localLoaded) {
-      if (savedData) {
-        setTaskData(savedData);
-        setLocalLoaded(true);
-        enqueueSnackbar("Kanban Loaded from save.", { variant: "success" });
-      }
-    }
-  }, [localLoaded, savedData, enqueueSnackbar]);
 
   /**
    * Function to create new tasks
