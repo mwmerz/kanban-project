@@ -1,6 +1,7 @@
 import React from "react";
-import { ThemeProvider, createTheme } from "@mui/material";
+import { ThemeProvider } from "@mui/material";
 import { SnackbarProvider } from "notistack";
+import { theme } from "styles";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -16,11 +17,7 @@ root.render(
     anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
   >
     <TaskProvider>
-      <ThemeProvider
-        theme={createTheme({
-          palette: { primary: { main: "#1b44a1" } },
-        })}
-      >
+      <ThemeProvider theme={theme}>
         <App />
       </ThemeProvider>
     </TaskProvider>

@@ -96,24 +96,24 @@ To get a local copy up and running follow these simple example steps.
   - [X] SPA
   - [X] Boiler Plate
 - [ ] Model: Column
-  - [ ] Name
+  - [X] Name
   - [ ] Order
 - [ ] Model: Card
-  - [ ] Name
-  - [ ] Description
-  - [ ] Created Date
-  - [ ] Status
+  - [X] Name
+  - [X] Description
+  - [X] Created Date
+  - [X] Status
   - [ ] Order
 
 ### User Stories
-- [ ] Add column w/name
+- [X] Add column w/name
 - [ ] Modify column name
 - [ ] delete empty column
 - [ ] drag & drop columns
 - [ ] add card w/name & description
 - [ ] can modify card details
-- [ ] user can see/switch ard status
-- [ ] move order w/drag & drop
+- [ ] user can see/switch card status
+- [X] move order w/drag & drop
 - [ ] can archive card
 
 ### Advanced Features
@@ -124,10 +124,10 @@ To get a local copy up and running follow these simple example steps.
 - [ ] i18n Feature
 - [X] PWA - Add to home
 - [ ] Persist Storage
-- [ ] Push Notification when card created
+- [X] Push Notification when card created
 - [ ] Windowing for large sets
-- [ ] Code Splitting / Lazy Loading
-- [ ] Responsive Design
+- [X] Code Splitting / Lazy Loading
+- [X] Responsive Design
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -135,7 +135,7 @@ To get a local copy up and running follow these simple example steps.
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See `LICENSE` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -163,7 +163,7 @@ Project Link: [https://github.com/mwmerz/kanban-project](https://github.com/mwme
 [issues-shield]: https://img.shields.io/github/issues/mwmerz/kanban-project.svg?style=for-the-badge
 [issues-url]: https://github.com/mwmerz/kanban-project/issues
 [license-shield]: https://img.shields.io/github/license/mwmerz/kanban-project.svg?style=for-the-badge
-[license-url]: https://github.com/mwmerz/kanban-project/blob/master/LICENSE.txt
+[license-url]: https://github.com/mwmerz/kanban-project/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [product-screenshot]: https://github.com/terra-money/screening-test-frontend/blob/master/screenshot.png?raw=true
 [Create React App]: https://img.shields.io/badge/Create_react_app-323845?style=for-the-badge&logo=createreactapp&logoColor=60d0ae
