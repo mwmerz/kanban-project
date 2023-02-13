@@ -1,4 +1,4 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
+import { useState, MouseEvent, ChangeEvent, SyntheticEvent } from "react";
 import {
   Box,
   Button,
@@ -7,8 +7,11 @@ import {
   MenuItem,
   Modal,
   TextField,
+  Checkbox,
   InputLabel,
   FormControl,
+  FormGroup,
+  FormControlLabel,
 } from "@mui/material";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Draggable } from "react-beautiful-dnd";
@@ -31,6 +34,7 @@ export function TaskComponent({
   const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>();
   const [modalOpen, setModalOpen] = useState<boolean>(false);
   const [nameField, setNameField] = useState<string>(task.name);
+  const [archivedField, setArchivedField] = useState<boolean>(task.archived);
   const [nameError, setNameError] = useState<string>("");
   const [descriptionField, setDescriptionField] = useState<string>(
     task.description
@@ -44,10 +48,15 @@ export function TaskComponent({
 
   const open = Boolean(anchorEl);
 
-  function handleFormSubmit(e: any) {
+  function handleFormSubmit(e: SyntheticEvent) {
     e.preventDefault();
     if (nameField.length < 1) {
-      setNameError("Name can not be blank");
+      setNameError("Name cannot be blank");
+      return;
+    }
+
+    if (nameField.length > 20) {
+      setNameError("Name cannot be over 20 characters.");
       return;
     }
     editTask(task.id, {
@@ -55,6 +64,7 @@ export function TaskComponent({
       name: nameField,
       description: descriptionField,
       status: statusField,
+      archived: archivedField,
     });
     handleModalClose();
   }
@@ -63,9 +73,18 @@ export function TaskComponent({
     setStatusField(e.target.value as "Open" | "Closed");
   }
 
+  function handleArchiveChange(e: ChangeEvent<HTMLInputElement>) {
+    setArchivedField(e.target.checked);
+  }
+
   function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.id === "name") {
       setNameField(e.target.value);
+
+      if (nameField.length > 20) {
+        setNameError("Name cannot be over 20 characters.");
+        return;
+      }
       setNameError("");
     }
 
@@ -80,8 +99,8 @@ export function TaskComponent({
   }
   function handleModalClose() {
     setModalOpen(false);
-    setNameField(task.name);
-    setDescriptionField(task.description);
+    setNameError("");
+    setDescriptionError("");
   }
 
   function handleMenuClick(e: MouseEvent<SVGSVGElement>) {
@@ -132,7 +151,14 @@ export function TaskComponent({
             }}
           >
             <MenuItem onClick={handleEditClick}>Edit</MenuItem>
-            <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
+            <MenuItem
+              sx={{
+                color: "#D00",
+              }}
+              onClick={handleDeleteClick}
+            >
+              Delete
+            </MenuItem>
           </Menu>
           <Modal
             aria-labelledby="modal-modal-title"
@@ -199,6 +225,20 @@ export function TaskComponent({
                       <MenuItem value={"Closed"}>Closed</MenuItem>
                     </Select>
                   </FormControl>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          id="archived"
+                          value={archivedField}
+                          defaultChecked={task.archived}
+                          onChange={handleArchiveChange}
+                        />
+                      }
+                      label="Archived"
+                    />
+                  </FormGroup>
+
                   <Stack direction={"row"} justifyContent={"flex-end"} gap={2}>
                     <Button variant={"contained"} type={"submit"}>
                       Save
@@ -236,7 +276,7 @@ export function TaskComponent({
               >
                 <Box fontSize={".75em"}>created: {rtf}</Box>
               </Box>
-              <Box>
+              <Stack direction={"row"} gap={1}>
                 {task.status === "Open" ? (
                   <img
                     alt={"open"}
@@ -252,7 +292,13 @@ export function TaskComponent({
                     }
                   />
                 )}
-              </Box>
+                {task.archived && (
+                  <img
+                    alt={"archived"}
+                    src={"https://img.shields.io/badge/-Archived-red"}
+                  />
+                )}
+              </Stack>
             </Stack>
           </Stack>
         </Box>
