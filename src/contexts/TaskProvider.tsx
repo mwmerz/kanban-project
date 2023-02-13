@@ -14,6 +14,8 @@ export type ITaskContext = {
   deleteTask: (taskId: string, columnId: string, index: number) => void;
   moveTask: (result: DropResult) => void;
   addColumn: (name: string) => void;
+  renameColumn: (columnId: string, title: string) => void;
+  deleteColumn: (columnId: string, index: number) => void;
   moveColumn: (result: DropResult) => void;
   clearState: () => void;
 };
@@ -68,6 +70,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
       description: "",
       dateCreated: new Date().valueOf(),
       status: "Open",
+      archived: false,
     };
 
     // clone the existing tasklist with the new task in it
@@ -328,6 +331,53 @@ export function TaskProvider({ children }: { children: ReactNode }) {
     return;
   }
 
+  /**
+   * Rename column
+   * @param columnId id of column to be renamed
+   * @param title new title to rename to
+   */
+  function renameColumn(columnId: string, title: string) {
+    // grab and clone column
+    const newColumn = { [columnId]: { ...taskData.columns[columnId], title } };
+
+    // clone state with updated column.
+    const newState: KanbanData = {
+      ...taskData,
+      columns: {
+        ...taskData.columns,
+        ...newColumn,
+      },
+    };
+
+    // overwrite state with new state
+    saveTaskData(newState);
+  }
+
+  /**
+   * Delete a column
+   * @param columnId id of column to be deleted
+   * @param index index of column within order array
+   */
+  function deleteColumn(columnId: string, index: number) {
+    // clone columns and remove this column by id
+    const newColumns = { ...taskData.columns };
+    delete newColumns[columnId];
+
+    // clone column order and remove this column by index
+    const newColumnOrder = Array.from(taskData.columnOrder);
+    newColumnOrder.splice(index, 1);
+
+    // clone state and update it with new state.
+    const newState: KanbanData = {
+      ...taskData,
+      columns: { ...newColumns },
+      columnOrder: [...newColumnOrder],
+    };
+
+    // overwrite state with new state
+    saveTaskData(newState);
+  }
+
   return (
     <TaskContext.Provider
       value={{
@@ -338,6 +388,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
         deleteTask,
         moveTask,
         addColumn,
+        renameColumn,
+        deleteColumn,
         moveColumn,
         clearState,
       }}

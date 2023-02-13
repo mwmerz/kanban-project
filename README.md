@@ -95,26 +95,26 @@ To get a local copy up and running follow these simple example steps.
   - [X] React
   - [X] SPA
   - [X] Boiler Plate
-- [ ] Model: Column
+- [X] Model: Column
   - [X] Name
-  - [ ] Order
-- [ ] Model: Card
+  - [X] Order
+- [X] Model: Card
   - [X] Name
   - [X] Description
   - [X] Created Date
   - [X] Status
-  - [ ] Order
+  - [X] Order
 
 ### User Stories
 - [X] Add column w/name
-- [ ] Modify column name
-- [ ] delete empty column
+- [X] Modify column name
+- [X] delete empty column
 - [X] drag & drop columns
 - [X] add card w/name & description
 - [X] can modify card details
 - [X] user can see/switch card status
 - [X] move order w/drag & drop
-- [ ] can archive card
+- [X] can archive card
 
 ### Advanced Features
 - [ ] Tests
@@ -123,7 +123,7 @@ To get a local copy up and running follow these simple example steps.
 - [ ] More Fields
 - [ ] i18n Feature
 - [X] PWA - Add to home
-- [ ] Persist Storage
+- [X] Persist Storage
 - [X] Push Notification when card created
 - [ ] Windowing for large sets
 - [X] Code Splitting / Lazy Loading
