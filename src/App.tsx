@@ -56,6 +56,7 @@ function App() {
               <Stack
                 {...provided.droppableProps}
                 ref={provided.innerRef}
+                minHeight={"100vh"}
                 direction={"row"}
                 overflow={"scroll"}
               >

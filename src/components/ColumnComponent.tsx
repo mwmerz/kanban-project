@@ -6,6 +6,7 @@ import {
   SyntheticEvent,
 } from "react";
 import {
+  Link,
   Box,
   Button,
   Stack,
@@ -172,6 +173,8 @@ export function ColumnComponent({
     handleAlertClose();
   }
 
+  const hiddenTasks = tasks.filter((task) => task.archived === true);
+
   return (
     <Draggable draggableId={column.id} index={index}>
       {(provided, snapshot) => (
@@ -229,6 +232,40 @@ export function ColumnComponent({
                       }
                     })
                   }
+                  {tasks.length < 1 && (
+                    <Box
+                      bgcolor={"rgba(255,255,255,.2)"}
+                      display={"flex"}
+                      justifyContent={"center"}
+                    >
+                      List empty.
+                    </Box>
+                  )}
+
+                  {showArchived !== true &&
+                    tasks.length === hiddenTasks.length &&
+                    hiddenTasks.length > 0 && (
+                      <Box
+                        bgcolor={"rgba(255,255,255,.2)"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        alignItems={"center"}
+                      >
+                        <Box>{hiddenTasks.length} archived tasks.</Box>
+                        <Box>
+                          <Link
+                            sx={{}}
+                            href={"#"}
+                            onClick={() => {
+                              setShowArchived(true);
+                            }}
+                          >
+                            Show hidden
+                          </Link>{" "}
+                          to view.
+                        </Box>
+                      </Box>
+                    )}
                   {provided.placeholder}
                 </Box>
               )}

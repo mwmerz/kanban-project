@@ -106,28 +106,32 @@ To get a local copy up and running follow these simple example steps.
   - [X] Order
 
 ### User Stories
-- [X] Add column w/name
-- [X] Modify column name
-- [X] delete empty column
-- [X] drag & drop columns
-- [X] add card w/name & description
-- [X] can modify card details
-- [X] user can see/switch card status
-- [X] move order w/drag & drop
-- [X] can archive card
+- [X] User can add column with name
+- [X] User can modify column name
+- [X] User can delete empty column
+- [X] User can move columns by drag & drop
+- [X] User can add card to column with name and description
+- [X] User can modify card details
+- [X] User can identify / switch status of card
+- [X] User can move / order card by drag & drop
+- [X] User can archive card
 
 ### Advanced Features
-- [ ] Tests
-- [ ] Error Handling
-- [ ] Multiple Boards
-- [ ] More Fields
-- [ ] i18n Feature
-- [X] PWA - Add to home
-- [X] Persist Storage
-- [X] Push Notification when card created
-- [ ] Windowing for large sets
-- [X] Code Splitting / Lazy Loading
-- [X] Responsive Design
+- [ ] Test codes
+- [ ] Graceful error handling
+- [ ] Multiple boards
+- [ ] More fields such as author, labels, assignee, comments, protected
+- [ ] i18n feature
+- [X] Add to Homescreen with an icon
+- [X] Persistent storage (by any method) to preserve state after refresh
+- [X] Push notification when a new card created
+- [ ] Windowing list (react-window, react-virtualized) when rendering lots of cards
+- [X] Code splitting and lazy loading
+- [X] RWD(Responsive Web Design) for desktop/mobile
+- [X] Show description when list is empty
+- [ ] 404 Page if url is not valid
+- [ ] Auto focus on initial state
+- [X] Input Validation
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
