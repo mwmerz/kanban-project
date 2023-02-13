@@ -31,9 +31,7 @@ function AlertDialog({
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {"Sure you want to delete?"}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Are you sure?"}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             Are you sure you want to clear the storage? This will set this board
@@ -44,19 +42,18 @@ function AlertDialog({
           <Button
             variant={"contained"}
             onClick={() => {
-              setOpen(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            variant={"contained"}
-            onClick={() => {
               successCallback();
             }}
             autoFocus
           >
             Ok
+          </Button>
+          <Button
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
