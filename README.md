@@ -165,7 +165,7 @@ Project Link: [https://github.com/mwmerz/kanban-project](https://github.com/mwme
 [license-shield]: https://img.shields.io/github/license/mwmerz/kanban-project.svg?style=for-the-badge
 [license-url]: https://github.com/mwmerz/kanban-project/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[product-screenshot]: https://github.com/terra-money/screening-test-frontend/blob/master/screenshot.png?raw=true
+[product-screenshot]: public/Banner.png
 [Create React App]: https://img.shields.io/badge/Create_react_app-323845?style=for-the-badge&logo=createreactapp&logoColor=60d0ae
 [CRA-url]: https://create-react-app.dev/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

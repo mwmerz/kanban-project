@@ -31,7 +31,17 @@ function App() {
     <div>
       <CssBaseline />
       <CreateListInput />
-      <Box bgcolor={cobaltBlue} minHeight={"100vh"}>
+      <Box
+        sx={{
+          backgroundImage: "url(/BannerOpacity.png)",
+          backgroundSize: "cover",
+          backgroundAttachment: "fixed",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        bgcolor={cobaltBlue}
+        minHeight={"100vh"}
+      >
         <DragDropContext
           onDragUpdate={onDragUpdate}
           onDragStart={onDragStart}
