@@ -10,6 +10,8 @@ export type ITaskContext = {
   taskData: KanbanData;
   saveTaskData: (data: KanbanData) => void;
   addTask: (columnId: string) => void;
+  editTask: (taskId: string, taskInfo: Task) => void;
+  deleteTask: (taskId: string, columnId: string, index: number) => void;
   moveTask: (result: DropResult) => void;
   addColumn: (name: string) => void;
   moveColumn: (result: DropResult) => void;
@@ -19,7 +21,6 @@ export type ITaskContext = {
 export const TaskContext = createContext<ITaskContext>({} as ITaskContext);
 
 /**
- *  TaskProvider
  *  Holds task state and provides update functions through hook.
  *  TODO: decouple task/group objects from drag/drop system.
  */
@@ -47,7 +48,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
   }
 
   /**
-   * Function to create new tasks
+   * create new tasks
+   *
    * @param columnId string of the column ID the task will belong to
    * @return void
    */
@@ -101,8 +103,7 @@ export function TaskProvider({ children }: { children: ReactNode }) {
   }
 
   /**
-   * moveTask
-   * Function to move task from one column to another.
+   * move task from one column to another.
    *
    * @param result drop result fed from onDragEnd function.
    * @returns void
@@ -196,6 +197,68 @@ export function TaskProvider({ children }: { children: ReactNode }) {
   }
 
   /**
+   * edit a task
+   *
+   * @param taskId id of task to edit
+   * @param taskInfo new info for task
+   * @returns void
+   */
+  function editTask(taskId: string, taskInfo: Task) {
+    // make sure task exists
+    if (!taskData.tasks[taskId]) return;
+
+    // check to see if taskData is changing
+    if (JSON.stringify(taskData.tasks[taskId]) === JSON.stringify(taskInfo))
+      return;
+
+    // create a new task object with new task info.
+    let newTask = { [taskId]: { ...taskInfo } };
+
+    // createa  new state object with new task.
+    let newState = {
+      ...taskData,
+      tasks: {
+        ...taskData.tasks,
+        ...newTask,
+      },
+    };
+
+    // overwrite state with new state
+    setSavedData(newState);
+  }
+
+  /**
+   * deletes a task and updates the column it was in.
+   *
+   * @param taskId id of task to be deleted
+   * @param columnId id of column containing task
+   * @param index index of task within column
+   * @returns void
+   */
+  function deleteTask(taskId: string, columnId: string, index: number) {
+    // make sure task exists. if it doesn't, just return.
+    if (!taskData.tasks[taskId]) return;
+
+    // create new tasks object without tasks.
+    const newTasks = { ...taskData.tasks };
+    delete newTasks[taskId];
+
+    // clone column, removing task from list
+    const newColumn = taskData.columns[columnId];
+    newColumn.taskIds.splice(index, 1);
+
+    // create new state object with task removed from tasks and column.
+    const newState = {
+      ...taskData,
+      tasks: { ...newTasks },
+      columns: { ...taskData.columns, [newColumn.id]: newColumn },
+    };
+
+    // overwrite state with new state object
+    setSavedData(newState);
+  }
+
+  /**
    * Add a new column
    * @param title name of new column
    */
@@ -271,6 +334,8 @@ export function TaskProvider({ children }: { children: ReactNode }) {
         taskData,
         saveTaskData,
         addTask,
+        editTask,
+        deleteTask,
         moveTask,
         addColumn,
         moveColumn,

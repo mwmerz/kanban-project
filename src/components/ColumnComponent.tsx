@@ -79,7 +79,12 @@ export function ColumnComponent({
                 >
                   {tasks.map((task, index) => {
                     return (
-                      <TaskComponent key={task.id} task={task} index={index} />
+                      <TaskComponent
+                        key={task.id}
+                        task={task}
+                        index={index}
+                        columnId={column.id}
+                      />
                     );
                   })}
                   {provided.placeholder}
