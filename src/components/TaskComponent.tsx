@@ -1,10 +1,108 @@
-import { Box, Stack } from "@mui/material";
+import { useState, MouseEvent, ChangeEvent } from "react";
+import {
+  Box,
+  Button,
+  Stack,
+  Menu,
+  MenuItem,
+  Modal,
+  TextField,
+  InputLabel,
+  FormControl,
+} from "@mui/material";
+import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Draggable } from "react-beautiful-dnd";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { useTasks } from "hooks";
 import { Handle } from "./Handle";
+import { cobaltBlue } from "styles";
 import { Task } from "data";
 import { getRelativeTimeString } from "util/format";
 
-export function TaskComponent({ task, index }: { task: Task; index: number }) {
+export function TaskComponent({
+  task,
+  index,
+  columnId,
+}: {
+  task: Task;
+  index: number;
+  columnId: string;
+}) {
+  const [anchorEl, setAnchorEl] = useState<null | SVGSVGElement>();
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [nameField, setNameField] = useState<string>(task.name);
+  const [nameError, setNameError] = useState<string>("");
+  const [descriptionField, setDescriptionField] = useState<string>(
+    task.description
+  );
+  const [descriptionError, setDescriptionError] = useState<string>("");
+  const [statusField, setStatusField] = useState<"Open" | "Closed">(
+    task.status
+  );
+
+  const { editTask, deleteTask } = useTasks();
+
+  const open = Boolean(anchorEl);
+
+  function handleFormSubmit(e: any) {
+    e.preventDefault();
+    if (nameField.length < 1) {
+      setNameError("Name can not be blank");
+      return;
+    }
+    editTask(task.id, {
+      ...task,
+      name: nameField,
+      description: descriptionField,
+      status: statusField,
+    });
+    handleModalClose();
+  }
+
+  function handleStatusChange(e: SelectChangeEvent) {
+    setStatusField(e.target.value as "Open" | "Closed");
+  }
+
+  function handleInputChange(e: ChangeEvent<HTMLInputElement>) {
+    if (e.target.id === "name") {
+      setNameField(e.target.value);
+      setNameError("");
+    }
+
+    if (e.target.id === "description") {
+      setDescriptionField(e.target.value);
+      setDescriptionError("");
+    }
+  }
+
+  function handleModalOpen() {
+    setModalOpen(true);
+  }
+  function handleModalClose() {
+    setModalOpen(false);
+    setNameField(task.name);
+    setDescriptionField(task.description);
+  }
+
+  function handleMenuClick(e: MouseEvent<SVGSVGElement>) {
+    setAnchorEl(e.currentTarget);
+  }
+
+  function handleMenuClose() {
+    setAnchorEl(null);
+  }
+
+  function handleEditClick() {
+    //editTask(task.id, { ...task, name: new Date().valueOf().toString() });
+    handleModalOpen();
+    handleMenuClose();
+  }
+
+  function handleDeleteClick() {
+    deleteTask(task.id, columnId, index);
+    handleMenuClose();
+  }
+
   const rtf = getRelativeTimeString(task.dateCreated);
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -24,10 +122,110 @@ export function TaskComponent({ task, index }: { task: Task; index: number }) {
           {...provided.draggableProps}
           ref={provided.innerRef}
         >
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleMenuClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleEditClick}>Edit</MenuItem>
+            <MenuItem onClick={handleDeleteClick}>Delete</MenuItem>
+          </Menu>
+          <Modal
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+            open={modalOpen}
+            onClose={handleModalClose}
+          >
+            <Box
+              sx={{
+                outline: 0,
+                borderRadius: 2,
+                position: "absolute" as "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: 400,
+                border: "1px solid lightgrey",
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+              }}
+            >
+              <form onSubmit={handleFormSubmit} autoComplete={"off"}>
+                <Stack gap={2}>
+                  <input id={"id"} type="hidden" value={task.id} />
+                  <TextField
+                    variant={"standard"}
+                    name={"name"}
+                    error={nameError ? true : false}
+                    helperText={nameError}
+                    fullWidth
+                    size={"small"}
+                    id={"name"}
+                    value={nameField}
+                    label={"Name"}
+                    onChange={handleInputChange}
+                  />
+                  <TextField
+                    variant={"standard"}
+                    fullWidth
+                    error={descriptionError ? true : false}
+                    helperText={descriptionError}
+                    size={"small"}
+                    id={"description"}
+                    label={"Description"}
+                    value={descriptionField}
+                    onChange={handleInputChange}
+                  />
+                  <input
+                    id={"dateCreated"}
+                    type="hidden"
+                    value={task.dateCreated}
+                  />
+                  <FormControl fullWidth variant={"standard"}>
+                    <InputLabel id="status-label">Status</InputLabel>
+                    <Select
+                      labelId="status-label"
+                      id="status"
+                      value={statusField}
+                      label="Status"
+                      onChange={handleStatusChange}
+                    >
+                      <MenuItem value={"Open"}>Open</MenuItem>
+                      <MenuItem value={"Closed"}>Closed</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <Stack direction={"row"} justifyContent={"flex-end"} gap={2}>
+                    <Button variant={"contained"} type={"submit"}>
+                      Save
+                    </Button>
+                    <Button color={"inherit"} onClick={handleModalClose}>
+                      Cancel
+                    </Button>
+                  </Stack>
+                </Stack>
+              </form>
+            </Box>
+          </Modal>
           <Stack direction={"row"} width={"100%"}>
             <Handle mr={2} {...provided.dragHandleProps} />
             <Stack width={"100%"}>
-              <Box fontWeight={"bold"}>{task.name}</Box>
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <Box fontWeight={"bold"}>{task.name}</Box>
+                <MoreHorizIcon
+                  onClick={handleMenuClick}
+                  sx={{
+                    cursor: "pointer",
+                    "&:hover": {
+                      color: cobaltBlue,
+                    },
+                  }}
+                />
+              </Stack>
               <Box fontSize={".9em"}>{task.description}</Box>
 
               <Box
