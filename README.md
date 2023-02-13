@@ -109,10 +109,10 @@ To get a local copy up and running follow these simple example steps.
 - [X] Add column w/name
 - [ ] Modify column name
 - [ ] delete empty column
-- [ ] drag & drop columns
-- [ ] add card w/name & description
-- [ ] can modify card details
-- [ ] user can see/switch card status
+- [X] drag & drop columns
+- [X] add card w/name & description
+- [X] can modify card details
+- [X] user can see/switch card status
 - [X] move order w/drag & drop
 - [ ] can archive card
 
