@@ -13,11 +13,11 @@ function App() {
   const { taskData, moveTask, moveColumn } = useTasks();
 
   function onDragStart() {
-    // TODO: effects that happen when the drag starts.
+    // INFO: effects that happen when the drag starts
   }
 
   function onDragUpdate(update: DragUpdate) {
-    // TODO: effects that happen as drag is updated.
+    // INFO: effects that happen as drag is updated
   }
 
   function onDragEnd(result: DropResult) {
